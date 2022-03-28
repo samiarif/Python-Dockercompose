@@ -1,0 +1,34 @@
+#shell (ubuntu)
+##network
+
+
+docker network create pg-network
+
+
+#Running postgres&pgadmin with docker
+
+sudo docker run -it \
+      -e POSTGRES_USER="root" \
+      -e POSTGRES_PASSWORD="root" \
+      -e POSTGRES_DB="ny_taxi" \
+      -v $(pwd)/ny_taxi_postgres_data:/var/lib/postgresql/data \
+      -p 5432:5432 \
+      --network=pg-network \
+      --name pg-sam \
+      postgres:13
+
+sudo docker build -t ingest:v001 .
+
+#running the ingestion.py 
+
+URL="https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2021-01.csv"
+
+
+sudo docker run taxi_ingest:v001 \
+--user=root \
+--password=root \
+--host=localhost \
+--port=5432 \
+--db=ny_taxi \
+--table_name=yellow_taxi_trips \
+--url=${URL}
