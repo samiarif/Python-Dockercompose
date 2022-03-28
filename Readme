@@ -1,0 +1,13 @@
+Putting the ingestion script to Docker
+
+    Converting the Jupyter notebook to a Python script
+    Parametrizing the script with argparse
+    Dockerizing the ingestion script
+
+Running Postgres and pgAdmin with Docker-Compose
+ Docker-compose YAML file
+ Running multiple containers with docker-compose up
+
+
+
+
